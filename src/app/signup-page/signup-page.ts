@@ -114,7 +114,6 @@ export class SignupPage {
     });
   }
 
-  // FIX: Navigates properly to login screen
   goToLogin() {
     this.router.navigate(['/']);
   }

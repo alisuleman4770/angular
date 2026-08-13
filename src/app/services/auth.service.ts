@@ -49,7 +49,6 @@ export class AuthService {
     return this.http.get<any>(this.subscriptionUrl, { headers });
   }
 
-  // UPDATED: Sends headers with Org Slug scope if available
   updatePlan(data: { planCode: string; billingInterval: string }, slug?: string): Observable<any> {
     const token = localStorage.getItem('accessToken');
     let headers = new HttpHeaders({
