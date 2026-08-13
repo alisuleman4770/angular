@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="left">
+    <img src="/images/login.png" alt="Restaurant Image">
+  </div>
+
+  <div class="right">
+
+    <!-- STANDARD LOGIN FORM -->
+    <form *ngIf="!forgotPasswordMode" class="login-form" #loginForm="ngForm" (ngSubmit)="login()">
+      <div class="logo">
+        <img src="/images/PlusOne LOGO Dark.png" alt="PlusOne Logo">
+      </div>
+      <p class="subtitle">Sign in to manage your restaurant</p>
+
+      <label for="email">Username</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" #emailCtrl="ngModel"
+        placeholder="Enter your email" required email>
+      <small *ngIf="emailCtrl.invalid && emailCtrl.touched" style="color: red;">Valid email required.</small>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" #passCtrl="ngModel"
+        placeholder="Enter your password" required minlength="6">
+      <small *ngIf="passCtrl.invalid && passCtrl.touched" style="color: red;">Password must be 6+ characters.</small>
+
+      <label for="company">Workspace Code</label>
+      <input type="text" placeholder="e.g. gujrat-grill" [(ngModel)]="company" name="company">
+
+      <div class="options">
+        <label class="remember">
+          <input type="checkbox" name="rememberMe" [(ngModel)]="rememberMe">
+          Remember me
+        </label>
+        <a href="javascript:void(0)" (click)="toggleForgotPassword()">Forgot Password?</a>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">Sign In</button>
+
+      <div class="trial-box">
+        <h5>NEW RESTAURANT?</h5>
+        <h3>Run your floor on PlusOne</h3>
+        <p>14-day free trial. No card required. Live in minutes.</p>
+        <button type="button" class="trial-btn" (click)="goToSignup()">Start free trial</button>
+      </div>
+
+      <p class="footer">&copy; 2013-2026 PlusOne POS. All rights reserved.</p>
+    </form>
+
+    <!-- FORGOT PASSWORD FORM (Only shows if NOT successful yet) -->
+    <form *ngIf="forgotPasswordMode && !resetSuccess" class="login-form" #forgotForm="ngForm"
+      (ngSubmit)="submitForgotPassword()">
+      <div class="logo">
+        <img src="/images/PlusOne LOGO Dark.png" alt="PlusOne Logo">
+      </div>
+      <p class="subtitle">Reset your password</p>
+      <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Enter your email address and we will send you a link
+        to reset your password.</p>
+
+      <label for="resetEmail">Email Address</label>
+      <input type="email" id="resetEmail" name="resetEmail" [(ngModel)]="resetEmail" required email
+        placeholder="Enter your email">
+
+      <button type="submit" [disabled]="forgotForm.invalid" style="margin-top: 20px;">Send Reset Link</button>
+
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="javascript:void(0)" (click)="toggleForgotPassword()" style="font-weight: bold;">Back to Login</a>
+      </div>
+
+      <p class="footer" style="margin-top: 50px;">&copy; 2013-2026 PlusOne POS. All rights reserved.</p>
+    </form>
+
+    <!-- NEW: SUCCESS MESSAGE CARD (Matches your screenshot) -->
+    <div *ngIf="forgotPasswordMode && resetSuccess"
+      style="background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 20px; text-align: left; max-width: 400px; margin: 0 auto; width: 100%;">
+
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eaeaea; padding-bottom: 15px; margin-bottom: 20px;">
+        <h2 style="margin: 0; font-size: 18px; color: #1a1f36;">Reset your password</h2>
+        <button type="button" (click)="closeResetSuccess()"
+          style="background: none; border: none; font-size: 24px; cursor: pointer; color: #666; line-height: 1;">&times;</button>
+      </div>
+
+      <div
+        style="background-color: #ecfdf3; color: #007f5f; padding: 15px; border-radius: 6px; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">
+        If an account exists for that email, we sent a reset link. Check your inbox.
+      </div>
+
+      <div style="border-top: 1px solid #eaeaea; padding-top: 15px; text-align: right;">
+        <button type="button" (click)="closeResetSuccess()"
+          style="background-color: #ff4d4f; color: white; border: none; padding: 8px 24px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px;">Done</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<div class="container">
+  <div class="left">
+    <img src="/images/login.png" alt="Restaurant" class="bg-img">
+    <div class="overlay-text">
+      <div class="brand-logo">
+        <img src="/images/PlusOne LOGO Light.png" alt="PlusOne Logo" class="white-logo">
+      </div>
+      <div class="marketing-copy">
+        <p class="overline">Restaurant Operating System</p>
+        <h1 class="main-heading">The complete<br>ecosystem for<br>restaurants</h1>
+        <p class="description">Front of house, kitchen, inventory, and<br>delivery — one connected platform for<br>every
+          service.</p>
+        <ul class="features">
+          <li>14-day free trial - no card required</li>
+          <li>Ireland, Pakistan & global pricing</li>
+          <li>Cancel anytime during trial</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="signup-form">
+      <div class="logo">
+        <img src="/images/PlusOne LOGO Dark.png" alt="Logo">
+      </div>
+
+      <!-- STEP 1 -->
+      <div *ngIf="step == 1">
+        <h1>Create your workspace</h1>
+        <p class="subtitle">Start your free trial. No card required.</p>
+        <div class="steps">
+          <div class="step active"><span>1</span> Account</div>
+          <div class="step"><span>2</span> Business</div>
+          <div class="step"><span>3</span> Plan</div>
+        </div>
+        <form ngNativeValidate (submit)="nextStep()">
+          <label for="name">Full Name</label>
+          <input type="text" placeholder="Full Name" [(ngModel)]="name" name="name" required pattern="[A-Za-z\s]+"
+            title="Only letters and spaces allowed">
+          <label for="email">Work Email</label>
+          <input type="email" placeholder="you@restaurant.com" [(ngModel)]="email" name="email" required>
+          <label for="password">Password</label>
+          <input type="password" placeholder="At least 8 characters" [(ngModel)]="password" name="password" required
+            minlength="8">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" placeholder="Repeat Password" [(ngModel)]="confirmPassword" name="confirmPassword"
+            required>
+          <small *ngIf="passwordError" class="error-msg">Passwords must be same!</small>
+          <button class="full-btn" type="submit">Continue</button>
+        </form>
+      </div>
+
+      <!-- STEP 2 -->
+      <div *ngIf="step == 2">
+        <h1>Tell us about your restaurant</h1>
+        <p class="subtitle">We'll tailor your setup to your location and service style.</p>
+        <div class="steps">
+          <div class="step active"><span>✓</span> Account</div>
+          <div class="step active"><span>2</span> Business</div>
+          <div class="step"><span>3</span> Plan</div>
+        </div>
+        <form ngNativeValidate (submit)="goToStep3()">
+          <div class="input-group">
+            <label for="businessName">Restaurant / business name</label>
+            <input type="text" placeholder="e.g. Business Name" [(ngModel)]="businessName" name="businessName"
+              id="businessName" required pattern="[A-Za-z\s]+" title="Only letters allowed">
+          </div>
+          <label for="phone">Phone number</label>
+          <input type="text" placeholder="Phone Number (11 digits)" [(ngModel)]="phone" name="phone" required
+            maxlength="11" minlength="11" pattern="\d{11}" title="Must be exactly 11 digits">
+          <div class="input-row">
+            <div class="input-group half-width">
+              <label for="city">City</label>
+              <input type="text" placeholder="Lahore" [(ngModel)]="city" name="city" id="city" required
+                pattern="[A-Za-z\s]+" title="Only letters allowed">
+            </div>
+            <div class="input-group half-width">
+              <label for="country">Country</label>
+              <select [(ngModel)]="country" name="country" id="country" required>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Ireland">Ireland</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="businessType">Business type</label>
+            <select [(ngModel)]="businessType" name="businessType" id="businessType" required>
+              <option value="Restaurant">Restaurant</option>
+              <option value="Cafe">Cafe</option>
+              <option value="Fast Food">Fast Food</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Bar">Bar</option>
+              <option value="Food Truck">Food Truck</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="buttons">
+            <button type="button" class="back-btn" (click)="previousStep()">Back</button>
+            <button type="submit" class="create-btn">Continue</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 3 -->
+      <div *ngIf="step == 3" class="step-3-container">
+        <h1>Choose how you want to grow</h1>
+        <p class="subtitle">Pick a plan now. You can change it anytime during trial.</p>
+        <div class="billing-toggle">
+          <button type="button" [class.active]="billingCycle === 'monthly'"
+            (click)="billingCycle = 'monthly'">Monthly</button>
+          <button type="button" [class.active]="billingCycle === 'annual'" (click)="billingCycle = 'annual'">Annual
+            <span class="discount-badge">-20%</span></button>
+        </div>
+        <form ngNativeValidate (submit)="signup()">
+          <div class="plans-row">
+            <div class="clean-plan-card" [class.selected]="selectedPlan === 'Starter'"
+              (click)="selectedPlan = 'Starter'">
+              <div class="plan-title">Starter</div>
+              <div class="plan-price">{{ billingCycle === 'annual' ? 'Rs3,750/month' : 'Rs4,500/month' }}</div>
+            </div>
+            <div class="clean-plan-card" [class.selected]="selectedPlan === 'Growth'" (click)="selectedPlan = 'Growth'">
+              <div class="plan-title">Growth <span class="popular-tag">POPULAR</span></div>
+              <div class="plan-price">{{ billingCycle === 'annual' ? 'Rs7,900/month' : 'Rs9,500/month' }}</div>
+            </div>
+            <div class="clean-plan-card" [class.selected]="selectedPlan === 'Pro'" (click)="selectedPlan = 'Pro'">
+              <div class="plan-title">Pro</div>
+              <div class="plan-price">{{ billingCycle === 'annual' ? 'Rs13,300/month' : 'Rs16,000/month' }}</div>
+            </div>
+          </div>
+          <div class="terms-container">
+            <label class="checkbox-label">
+              <input type="checkbox" id="terms" [(ngModel)]="termsAccepted" name="termsAccepted" required>
+              <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</span>
+            </label>
+          </div>
+          <div class="buttons">
+            <button type="button" class="back-btn" (click)="previousStep()">Back</button>
+            <button type="submit" class="create-btn start-trial-btn">Start free trial</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <p class="login-link">Already have an account? <a href="javascript:void(0)" (click)="goToLogin()">Log In</a></p>
+  </div>
+</div>

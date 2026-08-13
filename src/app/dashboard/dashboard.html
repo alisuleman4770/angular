@@ -1,0 +1,190 @@
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <div class="brand">
+        <img src="/images/PlusOne LOGO Light.png" alt="PlusOne">
+      </div>
+      <a class="menu active">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+      </a>
+    </div>
+    <button class="logout" (click)="logout()">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      Logout
+    </button>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div>
+        <small>DASHBOARD</small>
+        <h1>Welcome back</h1>
+        <p>Here is your restaurant information.</p>
+      </div>
+      <div class="profile">
+        <div>
+          <b>{{ user.company_name || 'Company' }}</b>
+          <span>{{ user.username || 'User' }}</span>
+        </div>
+        <div class="avatar">
+          {{ user.company_name?.charAt(0)?.toUpperCase() || 'U' }}
+        </div>
+      </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <section class="summary">
+      <div>
+        <i class="fa-solid fa-building"></i>
+        <span>COMPANY</span>
+        <b>{{ user.company_name || 'N/A' }}</b>
+      </div>
+      <div>
+        <i class="fa-solid fa-crown"></i>
+        <span>PLAN</span>
+        <b>{{ user.sub_package || 'N/A' }}</b>
+      </div>
+      <div>
+        <i class="fa-solid fa-circle-check"></i>
+        <span>STATUS</span>
+        <b>{{ user.org_status || 'N/A' }}</b>
+      </div>
+    </section>
+
+    <!-- ACCOUNT -->
+    <section class="card">
+      <div class="card-title">
+        <h2><i class="fa-solid fa-user"></i> Account Information</h2>
+      </div>
+      <div class="fields">
+        <label>
+          Email
+          <input type="email" [value]="user.username || ''" readonly class="locked-email-field">
+        </label>
+        <label>
+          Email Verified
+          <input type="text" [value]="user.email_verified ? 'Yes' : 'No'" readonly class="locked-email-field">
+        </label>
+      </div>
+    </section>
+
+    <!-- BUSINESS -->
+    <section class="card">
+      <div class="card-title">
+        <h2><i class="fa-solid fa-store"></i> Business Information</h2>
+        <div class="buttons">
+          <button *ngIf="!editMode" class="edit" type="button" (click)="editProfile()">
+            <i class="fa-solid fa-pen"></i> Edit
+          </button>
+          <ng-container *ngIf="editMode">
+            <button class="cancel" type="button" (click)="cancelEdit()" [disabled]="saving">
+              Cancel
+            </button>
+            <button class="save" type="button" (click)="saveChanges()" [disabled]="saving">
+              <i class="fa-solid" [class.fa-check]="!saving" [class.fa-spinner]="saving" [class.fa-spin]="saving"></i>
+              {{ saving ? 'Saving...' : 'Save' }}
+            </button>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="fields">
+        <label>
+          Company Name
+          <input type="text" [(ngModel)]="user.company_name" [readonly]="!editMode">
+        </label>
+        <label>
+          Workspace Code
+          <input type="text" [(ngModel)]="user.org_slug" readonly class="locked-email-field">
+        </label>
+        <label>
+          Phone Number
+          <input type="text" [(ngModel)]="user.telephone" [readonly]="!editMode">
+        </label>
+        <label>
+          City
+          <input type="text" [(ngModel)]="user.city" [readonly]="!editMode">
+        </label>
+        <label class="full-width">
+          Address
+          <input type="text" [(ngModel)]="user.addressLine1" [readonly]="!editMode">
+        </label>
+      </div>
+    </section>
+
+    <!-- SUBSCRIPTION -->
+    <section class="card subscription">
+      <div class="card-title">
+        <h2><i class="fa-solid fa-crown"></i> Subscription</h2>
+      </div>
+
+      <!-- CURRENT PLAN -->
+      <div class="current-plan-box">
+        <div>
+          <small>CURRENT PLAN</small>
+          <h3>{{ user.sub_package || 'N/A' }}</h3>
+          <div class="plan-meta">
+            <span><i class="fa-solid fa-circle"></i> {{ user.org_status || 'N/A' }}</span>
+            <span><i class="fa-solid fa-calendar"></i>
+              {{ billingCycle === 'annual' ? 'Annual Billing' : 'Monthly Billing' }}</span>
+          </div>
+        </div>
+        <div class="trial">
+          <small>TRIAL ENDS</small>
+          <strong>{{ user.trial_ends_at ? (user.trial_ends_at | date:'longDate') : 'N/A' }}</strong>
+        </div>
+      </div>
+
+      <!-- BILLING TOGGLE -->
+      <div class="billing">
+        <button [class.active]="billingCycle === 'monthly'" [disabled]="!editMode" (click)="billingCycle = 'monthly'">
+          Monthly
+        </button>
+        <button [class.active]="billingCycle === 'annual'" [disabled]="!editMode" (click)="billingCycle = 'annual'">
+          Annual <span>-20%</span>
+        </button>
+      </div>
+
+      <!-- PLANS -->
+      <div class="plans">
+        <div class="plan" [class.selected]="planSelected('Starter')" [class.disabled]="!editMode"
+          (click)="selectPlan('Starter')">
+          <div class="plan-head">
+            <h3>Starter</h3>
+            <i *ngIf="planSelected('Starter')" class="fa-solid fa-circle-check"></i>
+          </div>
+          <strong>{{ getPrice('Starter') }}</strong>
+          <span>/ month</span>
+          <p>For small restaurants</p>
+        </div>
+
+        <div class="plan" [class.selected]="planSelected('Growth')" [class.disabled]="!editMode"
+          (click)="selectPlan('Growth')">
+          <div class="plan-head">
+            <h3>Growth</h3>
+            <em>POPULAR</em>
+          </div>
+          <strong>{{ getPrice('Growth') }}</strong>
+          <span>/ month</span>
+          <p>For growing restaurants</p>
+        </div>
+
+        <div class="plan" [class.selected]="planSelected('Pro')" [class.disabled]="!editMode"
+          (click)="selectPlan('Pro')">
+          <div class="plan-head">
+            <h3>Pro</h3>
+            <i *ngIf="planSelected('Pro')" class="fa-solid fa-circle-check"></i>
+          </div>
+          <strong>{{ getPrice('Pro') }}</strong>
+          <span>/ month</span>
+          <p>Complete restaurant solution</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
