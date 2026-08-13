@@ -10,6 +10,9 @@
   height: 100vh;
 }
 
+/* =========================================
+   LEFT SIDE (MARKETING)
+   ========================================= */
 .left {
   width: 70%;
   position: relative;
@@ -87,6 +90,9 @@
   margin-right: 15px;
 }
 
+/* =========================================
+   RIGHT SIDE (FORM AREA)
+   ========================================= */
 .right {
   width: 30%;
   min-width: 500px;
@@ -102,6 +108,8 @@
 .signup-form {
   width: 100%;
   padding: 0 50px;
+  max-width: 600px;
+  /* Prevents form from getting too wide on tablets */
 }
 
 .logo {
@@ -121,8 +129,12 @@ h1 {
 .subtitle {
   color: gray;
   margin-bottom: 25px;
+  font-size: 15px;
 }
 
+/* =========================================
+   STEPPER
+   ========================================= */
 .steps {
   display: flex;
   gap: 30px;
@@ -156,6 +168,9 @@ h1 {
   color: white;
 }
 
+/* =========================================
+   INPUTS & BUTTONS
+   ========================================= */
 label {
   display: block;
   margin-bottom: 5px;
@@ -196,12 +211,14 @@ select:focus {
   display: block;
   margin-top: -10px;
   margin-bottom: 10px;
+  font-size: 13px;
 }
 
 .buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
+  gap: 15px;
 }
 
 .back-btn,
@@ -212,6 +229,8 @@ select:focus {
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
+  font-weight: bold;
+  transition: 0.2s;
 }
 
 .full-btn {
@@ -220,13 +239,15 @@ select:focus {
   color: white;
 }
 
-.full-btn:hover {
+.full-btn:hover,
+.create-btn:hover {
   background: #e53c2e;
 }
 
 .back-btn,
 .create-btn {
-  width: 48%;
+  flex: 1;
+  /* Makes split buttons take equal space */
 }
 
 .back-btn {
@@ -239,13 +260,10 @@ select:focus {
   color: white;
 }
 
-.create-btn:hover {
-  background: #e53c2e;
-}
-
 .login-link {
   text-align: center;
   margin-top: 20px;
+  font-size: 14px;
 }
 
 .login-link a {
@@ -258,7 +276,9 @@ select:focus {
   text-decoration: underline;
 }
 
-/* Step 3: Horizontal Cards */
+/* =========================================
+   STEP 3: PLANS & BILLING
+   ========================================= */
 .plans-row {
   display: flex;
   gap: 15px;
@@ -344,23 +364,123 @@ select:focus {
   margin-left: 4px;
 }
 
+.billing-toggle button:not(.active) .discount-badge {
+  background: #ff5722;
+  color: white;
+}
+
 .terms-container {
   margin: 20px 0;
 }
 
 .checkbox-label {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  /* Better alignment if text wraps */
   gap: 10px;
   font-size: 14px;
   color: #475569;
   cursor: pointer;
+  line-height: 1.4;
 }
 
 .checkbox-label input[type="checkbox"] {
   width: 16px;
   height: 16px;
   margin-bottom: 0;
+  margin-top: 2px;
   cursor: pointer;
   accent-color: #ff5722;
+  flex-shrink: 0;
+}
+
+.checkbox-label a {
+  color: #ff4d3d;
+}
+
+/* =========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+
+/* Table and Small Desktop */
+@media (max-width: 1100px) {
+  .left {
+    width: 50%;
+  }
+
+  .right {
+    width: 50%;
+    min-width: 400px;
+  }
+
+  .overlay-text {
+    padding: 40px;
+  }
+
+  .main-heading {
+    font-size: 40px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 800px) {
+  .left {
+    display: none;
+    /* Hide marketing image on small screens */
+  }
+
+  .right {
+    width: 100%;
+    min-width: 100%;
+    padding: 20px 0;
+  }
+
+  .signup-form {
+    padding: 0 25px;
+    /* Reduce side padding for mobile */
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  /* Compress the stepper */
+  .steps {
+    gap: 15px;
+    font-size: 13px;
+  }
+
+  .step span {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  /* Stack row inputs vertically */
+  .input-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Stack plan cards vertically */
+  .plans-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .clean-plan-card {
+    padding: 15px;
+  }
+
+  /* Stack buttons vertically on mobile for easier tapping */
+  .buttons {
+    flex-direction: column-reverse;
+    /* Puts "Continue" on top, "Back" below */
+    gap: 10px;
+  }
+
+  .back-btn,
+  .create-btn {
+    width: 100%;
+  }
 }

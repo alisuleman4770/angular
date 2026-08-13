@@ -11,7 +11,23 @@
   color: #172033;
 }
 
-/* SIDEBAR */
+/* =========================================
+   HAMBURGER MENU TOGGLE (HIDDEN ON DESKTOP)
+   ========================================= */
+.menu-checkbox {
+  display: none;
+}
+
+.menu-toggle-btn {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #1b2433;
+}
+
+/* =========================================
+   SIDEBAR
+   ========================================= */
 .sidebar {
   position: fixed;
   width: 220px;
@@ -21,6 +37,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 .brand {
@@ -58,10 +76,13 @@
   cursor: pointer;
 }
 
-/* MAIN */
+/* =========================================
+   MAIN CONTENT
+   ========================================= */
 .main {
   margin-left: 220px;
   padding: 30px 35px;
+  transition: margin-left 0.3s ease-in-out;
 }
 
 .header {
@@ -114,7 +135,9 @@
   font-weight: bold;
 }
 
-/* SUMMARY & CARDS */
+/* =========================================
+   FLUID GRIDS (SUMMARY, PLANS, FIELDS)
+   ========================================= */
 .summary>div,
 .card {
   background: white;
@@ -122,11 +145,15 @@
   border-radius: 9px;
 }
 
-.summary {
+.summary,
+.plans,
+.fields {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* CHANGED FROM 4 to 3 since branch is removed */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 15px;
+}
+
+.summary {
   margin: 25px 0;
 }
 
@@ -142,7 +169,7 @@
 .summary span {
   display: block;
   color: #999;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: bold;
 }
 
@@ -171,7 +198,9 @@
   margin-right: 8px;
 }
 
-/* BUTTONS */
+/* =========================================
+   BUTTONS & FIELDS
+   ========================================= */
 .buttons {
   display: flex;
   gap: 8px;
@@ -204,15 +233,8 @@
   cursor: not-allowed;
 }
 
-/* FIELDS */
-.fields {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
 .fields .full-width {
-  grid-column: span 2;
+  grid-column: 1 / -1;
 }
 
 .fields label {
@@ -246,7 +268,9 @@
   -webkit-text-fill-color: #888 !important;
 }
 
-/* CURRENT PLAN */
+/* =========================================
+   CURRENT PLAN
+   ========================================= */
 .current-plan-box {
   display: flex;
   justify-content: space-between;
@@ -285,7 +309,9 @@
   color: #555;
 }
 
-/* BILLING TOGGLE */
+/* =========================================
+   BILLING TOGGLE & PLANS
+   ========================================= */
 .billing {
   display: flex;
   justify-content: center;
@@ -325,13 +351,6 @@
   background: #ff5722;
   color: white;
   font-size: 8px;
-}
-
-/* PLANS */
-.plans {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
 }
 
 .plan {
@@ -395,23 +414,40 @@
   font-size: 11px;
 }
 
-/* MOBILE */
+/* =========================================
+   MOBILE BREAKPOINT
+   ========================================= */
 @media (max-width: 800px) {
-  .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
+
+  /* Hamburger button positioning */
+  .menu-toggle-btn {
+    display: block;
+    position: absolute;
+    top: 30px;
+    right: 35px;
+    z-index: 1001;
   }
 
+  /* Slide sidebar off-screen by default */
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+  }
+
+  /* When checkbox is checked, slide sidebar in */
+  .menu-checkbox:checked~.sidebar {
+    transform: translateX(0);
+  }
+
+  /* Reset main content margin */
   .main {
     margin-left: 0;
     padding: 20px;
   }
 
-  .summary,
-  .plans,
-  .fields {
-    grid-template-columns: 1fr;
+  /* Prevent text overlapping with the hamburger icon */
+  .header {
+    padding-right: 40px;
   }
 
   .profile {
