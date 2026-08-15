@@ -107,7 +107,7 @@ export class SignupPage {
         alert('Signup Successful');
         this.router.navigate(['/']);
       },
-      error: (err) => {
+     error: (err) => {
         console.error(err);
         alert(err.error?.message || 'Signup Failed');
       },

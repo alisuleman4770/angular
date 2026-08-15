@@ -1,0 +1,201 @@
+<div class="orders-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h1>Orders</h1>
+      <p>Manage and track your restaurant orders</p>
+    </div>
+
+    <button class="new-order-btn">
+      + New Order
+    </button>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+
+    <div class="summary-card">
+      <span class="card-title">Total Orders</span>
+      <strong>1,248</strong>
+      <small>All orders</small>
+    </div>
+
+    <div class="summary-card">
+      <span class="card-title">Pending</span>
+      <strong>24</strong>
+      <small>Need attention</small>
+    </div>
+
+    <div class="summary-card">
+      <span class="card-title">Completed</span>
+      <strong>1,180</strong>
+      <small>Successfully completed</small>
+    </div>
+
+    <div class="summary-card">
+      <span class="card-title">Revenue</span>
+      <strong>$24,580</strong>
+      <small>Total sales</small>
+    </div>
+
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+
+    <div class="search-box">
+      <span>🔍</span>
+      <input
+        type="text"
+        placeholder="Search orders..."
+      />
+    </div>
+
+    <select>
+      <option value="">All Status</option>
+      <option value="pending">Pending</option>
+      <option value="processing">Processing</option>
+      <option value="completed">Completed</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+
+    <select>
+      <option value="">All Payment</option>
+      <option value="paid">Paid</option>
+      <option value="pending">Pending</option>
+      <option value="refunded">Refunded</option>
+    </select>
+
+    <button class="filter-btn">
+      Filter
+    </button>
+
+  </div>
+
+  <!-- Orders Table -->
+  <div class="orders-table-container">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Customer</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td>
+            <strong>#1025</strong>
+            <small>Today, 04:35 PM</small>
+          </td>
+
+          <td>Ali Khan</td>
+
+          <td>3 Items</td>
+
+          <td><strong>$45.00</strong></td>
+
+          <td>
+            <span class="badge paid">Paid</span>
+          </td>
+
+          <td>
+            <span class="badge completed">Completed</span>
+          </td>
+
+          <td>
+            <button class="view-btn">View</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>#1024</strong>
+            <small>Today, 04:12 PM</small>
+          </td>
+
+          <td>Ahmed Raza</td>
+
+          <td>2 Items</td>
+
+          <td><strong>$28.00</strong></td>
+
+          <td>
+            <span class="badge paid">Paid</span>
+          </td>
+
+          <td>
+            <span class="badge pending">Pending</span>
+          </td>
+
+          <td>
+            <button class="view-btn">View</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>#1023</strong>
+            <small>Today, 03:48 PM</small>
+          </td>
+
+          <td>Usman Ali</td>
+
+          <td>5 Items</td>
+
+          <td><strong>$72.00</strong></td>
+
+          <td>
+            <span class="badge pending-payment">Pending</span>
+          </td>
+
+          <td>
+            <span class="badge processing">Processing</span>
+          </td>
+
+          <td>
+            <button class="view-btn">View</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>#1022</strong>
+            <small>Today, 03:21 PM</small>
+          </td>
+
+          <td>Hassan Ahmed</td>
+
+          <td>4 Items</td>
+
+          <td><strong>$56.50</strong></td>
+
+          <td>
+            <span class="badge paid">Paid</span>
+          </td>
+
+          <td>
+            <span class="badge cancelled">Cancelled</span>
+          </td>
+
+          <td>
+            <button class="view-btn">View</button>
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
