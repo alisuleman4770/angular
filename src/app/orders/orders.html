@@ -1,201 +1,971 @@
 <div class="orders-page">
 
-  <!-- Header -->
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
   <div class="page-header">
+
     <div>
-      <h1>Orders</h1>
-      <p>Manage and track your restaurant orders</p>
-    </div>
 
-    <button class="new-order-btn">
-      + New Order
-    </button>
-  </div>
+      <h1>
+        Orders
+      </h1>
 
-  <!-- Summary Cards -->
-  <div class="summary-cards">
+      <p>
+        Manage and track all your orders
+      </p>
 
-    <div class="summary-card">
-      <span class="card-title">Total Orders</span>
-      <strong>1,248</strong>
-      <small>All orders</small>
-    </div>
-
-    <div class="summary-card">
-      <span class="card-title">Pending</span>
-      <strong>24</strong>
-      <small>Need attention</small>
-    </div>
-
-    <div class="summary-card">
-      <span class="card-title">Completed</span>
-      <strong>1,180</strong>
-      <small>Successfully completed</small>
-    </div>
-
-    <div class="summary-card">
-      <span class="card-title">Revenue</span>
-      <strong>$24,580</strong>
-      <small>Total sales</small>
     </div>
 
   </div>
 
-  <!-- Filters -->
-  <div class="filters">
 
-    <div class="search-box">
-      <span>🔍</span>
+  <!-- =====================================================
+       STATS
+       ===================================================== -->
+
+  <section class="stats-grid">
+
+
+    <!-- ALL ORDERS -->
+
+    <div class="stat-card">
+
+      <span class="stat-label">
+        All orders
+      </span>
+
+      @if (loading()) {
+
+        <div class="skeleton stat-skeleton"></div>
+
+      } @else {
+
+        <strong>
+          {{ stats().allOrders | number }}
+        </strong>
+
+      }
+
+    </div>
+
+
+    <!-- NEED ATTENTION -->
+
+    <div class="stat-card">
+
+      <span class="stat-label">
+        Need attention
+      </span>
+
+      @if (loading()) {
+
+        <div class="skeleton stat-skeleton"></div>
+
+      } @else {
+
+        <strong>
+          {{ stats().needAttention | number }}
+        </strong>
+
+      }
+
+    </div>
+
+
+    <!-- COMPLETED -->
+
+    <div class="stat-card">
+
+      <span class="stat-label">
+        Successfully completed
+      </span>
+
+      @if (loading()) {
+
+        <div class="skeleton stat-skeleton"></div>
+
+      } @else {
+
+        <strong>
+          {{ stats().completed | number }}
+        </strong>
+
+      }
+
+    </div>
+
+
+    <!-- SALES -->
+
+    <div class="stat-card">
+
+      <span class="stat-label">
+        Total sales
+      </span>
+
+      @if (loading()) {
+
+        <div class="skeleton stat-skeleton sales"></div>
+
+      } @else {
+
+        <strong>
+          {{ formatCurrency(stats().totalSales) }}
+        </strong>
+
+      }
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       FILTERS
+       ===================================================== -->
+
+  <section class="filters-card">
+
+
+    <!-- SEARCH -->
+
+    <div class="search-wrapper">
+
+      <span class="search-icon">
+        🔍
+      </span>
+
       <input
         type="text"
+        [value]="search()"
+        (input)="onSearch($event)"
         placeholder="Search orders..."
       />
+
     </div>
 
-    <select>
-      <option value="">All Status</option>
-      <option value="pending">Pending</option>
-      <option value="processing">Processing</option>
-      <option value="completed">Completed</option>
-      <option value="cancelled">Cancelled</option>
+
+    <!-- ORDER STATUS -->
+
+    <select
+      [value]="orderStatus()"
+      (change)="
+        onOrderStatusChange(
+          $any($event.target).value
+        )
+      "
+    >
+
+      @for (
+        status of orderStatuses;
+        track status
+      ) {
+
+        <option [value]="status">
+          {{ status }}
+        </option>
+
+      }
+
     </select>
 
-    <select>
-      <option value="">All Payment</option>
-      <option value="paid">Paid</option>
-      <option value="pending">Pending</option>
-      <option value="refunded">Refunded</option>
+
+    <!-- PAYMENT STATUS -->
+
+    <select
+      [value]="paymentStatus()"
+      (change)="
+        onPaymentStatusChange(
+          $any($event.target).value
+        )
+      "
+    >
+
+      @for (
+        status of paymentStatuses;
+        track status
+      ) {
+
+        <option [value]="status">
+          {{ status }}
+        </option>
+
+      }
+
     </select>
 
-    <button class="filter-btn">
+
+    <!-- FILTER -->
+
+    <button
+      type="button"
+      class="filter-button"
+      (click)="applyFilters()"
+    >
       Filter
     </button>
 
-  </div>
 
-  <!-- Orders Table -->
-  <div class="orders-table-container">
+  </section>
 
-    <table>
 
-      <thead>
-        <tr>
-          <th>Order</th>
-          <th>Customer</th>
-          <th>Items</th>
-          <th>Total</th>
-          <th>Payment</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+  <!-- =====================================================
+       ERROR
+       ===================================================== -->
 
-      <tbody>
+  @if (error()) {
 
-        <tr>
-          <td>
-            <strong>#1025</strong>
-            <small>Today, 04:35 PM</small>
-          </td>
+    <div class="error-message">
 
-          <td>Ali Khan</td>
+      {{ error() }}
 
-          <td>3 Items</td>
+      <button
+        type="button"
+        (click)="getOrders()"
+      >
+        Retry
+      </button>
 
-          <td><strong>$45.00</strong></td>
+    </div>
 
-          <td>
-            <span class="badge paid">Paid</span>
-          </td>
+  }
 
-          <td>
-            <span class="badge completed">Completed</span>
-          </td>
 
-          <td>
-            <button class="view-btn">View</button>
-          </td>
-        </tr>
+  <!-- =====================================================
+       DESKTOP / TABLET TABLE
+       ===================================================== -->
 
-        <tr>
-          <td>
-            <strong>#1024</strong>
-            <small>Today, 04:12 PM</small>
-          </td>
+  <section class="table-container">
 
-          <td>Ahmed Raza</td>
 
-          <td>2 Items</td>
+    <div class="table-scroll">
 
-          <td><strong>$28.00</strong></td>
+      <table>
 
-          <td>
-            <span class="badge paid">Paid</span>
-          </td>
 
-          <td>
-            <span class="badge pending">Pending</span>
-          </td>
+        <!-- HEADER -->
 
-          <td>
-            <button class="view-btn">View</button>
-          </td>
-        </tr>
+        <thead>
 
-        <tr>
-          <td>
-            <strong>#1023</strong>
-            <small>Today, 03:48 PM</small>
-          </td>
+          <tr>
 
-          <td>Usman Ali</td>
+            <th>
+              Order
+            </th>
 
-          <td>5 Items</td>
+            <th>
+              Customer
+            </th>
 
-          <td><strong>$72.00</strong></td>
+            <th>
+              Items
+            </th>
 
-          <td>
-            <span class="badge pending-payment">Pending</span>
-          </td>
+            <th>
+              Total
+            </th>
 
-          <td>
-            <span class="badge processing">Processing</span>
-          </td>
+            <th>
+              Payment
+            </th>
 
-          <td>
-            <button class="view-btn">View</button>
-          </td>
-        </tr>
+            <th>
+              Status
+            </th>
 
-        <tr>
-          <td>
-            <strong>#1022</strong>
-            <small>Today, 03:21 PM</small>
-          </td>
+            <th>
+              Action
+            </th>
 
-          <td>Hassan Ahmed</td>
+          </tr>
 
-          <td>4 Items</td>
+        </thead>
 
-          <td><strong>$56.50</strong></td>
 
-          <td>
-            <span class="badge paid">Paid</span>
-          </td>
+        <tbody>
 
-          <td>
-            <span class="badge cancelled">Cancelled</span>
-          </td>
 
-          <td>
-            <button class="view-btn">View</button>
-          </td>
-        </tr>
+          <!-- =================================================
+               LOADING
+               ================================================= -->
 
-      </tbody>
+          @if (loading()) {
 
-    </table>
+            @for (
+              item of [1,2,3,4,5];
+              track item
+            ) {
 
-  </div>
+              <tr>
+
+                @for (
+                  cell of [1,2,3,4,5,6,7];
+                  track cell
+                ) {
+
+                  <td>
+
+                    <div
+                      class="skeleton table-skeleton"
+                    ></div>
+
+                  </td>
+
+                }
+
+              </tr>
+
+            }
+
+          }
+
+
+          <!-- =================================================
+               ORDERS
+               ================================================= -->
+
+          @else {
+
+            @for (
+              order of orders();
+              track order.id
+            ) {
+
+              <tr>
+
+
+                <!-- ORDER -->
+
+                <td>
+
+                  <div class="order-number">
+
+                    #{{ order.orderNumber }}
+
+                  </div>
+
+                  <div class="order-date">
+
+                    {{ order.dateTime | date:'MMM d, h:mm a' }}
+
+                  </div>
+
+                </td>
+
+
+                <!-- CUSTOMER -->
+
+                <td>
+
+                  <span class="customer-name">
+
+                    {{ order.customer }}
+
+                  </span>
+
+                </td>
+
+
+                <!-- ITEMS -->
+
+                <td>
+
+                  {{ order.items }} Items
+
+                </td>
+
+
+                <!-- TOTAL -->
+
+                <td>
+
+                  <strong>
+
+                    {{ formatCurrency(order.total) }}
+
+                  </strong>
+
+                </td>
+
+
+                <!-- PAYMENT -->
+
+                <td>
+
+                  <span
+                    class="badge"
+                    [class]="
+                      getPaymentClass(
+                        order.paymentStatus
+                      )
+                    "
+                  >
+
+                    {{ order.paymentStatus }}
+
+                  </span>
+
+                </td>
+
+
+                <!-- STATUS -->
+
+                <td>
+
+                  <span
+                    class="badge"
+                    [class]="
+                      getStatusClass(
+                        order.orderStatus
+                      )
+                    "
+                  >
+
+                    {{ order.orderStatus }}
+
+                  </span>
+
+                </td>
+
+
+                <!-- VIEW -->
+
+                <td>
+
+                  <button
+                    type="button"
+                    class="view-button"
+                    (click)="viewOrder(order)"
+                  >
+                    View
+                  </button>
+
+                </td>
+
+
+              </tr>
+
+            }
+
+          }
+
+
+          <!-- =================================================
+               EMPTY
+               ================================================= -->
+
+          @if (
+            !loading() &&
+            orders().length === 0
+          ) {
+
+            <tr>
+
+              <td
+                colspan="7"
+                class="empty-cell"
+              >
+
+                <div class="empty-icon">
+                  📦
+                </div>
+
+                <h3>
+                  No orders found
+                </h3>
+
+                <p>
+                  Try changing your search or filters.
+                </p>
+
+              </td>
+
+            </tr>
+
+          }
+
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       MOBILE CARDS
+       ===================================================== -->
+
+  <section class="mobile-orders">
+
+
+    <!-- LOADING -->
+
+    @if (loading()) {
+
+      @for (
+        item of [1,2,3];
+        track item
+      ) {
+
+        <div class="mobile-order-card">
+
+          <div
+            class="skeleton mobile-skeleton-title"
+          ></div>
+
+          <div
+            class="skeleton mobile-skeleton-line"
+          ></div>
+
+          <div class="mobile-skeleton-grid">
+
+            <div class="skeleton"></div>
+
+            <div class="skeleton"></div>
+
+            <div class="skeleton"></div>
+
+            <div class="skeleton"></div>
+
+          </div>
+
+        </div>
+
+      }
+
+    }
+
+
+    <!-- ORDERS -->
+
+    @else {
+
+      @for (
+        order of orders();
+        track order.id
+      ) {
+
+        <article class="mobile-order-card">
+
+
+          <!-- CARD HEADER -->
+
+          <div class="mobile-card-header">
+
+            <div>
+
+              <strong>
+                #{{ order.orderNumber }}
+              </strong>
+
+              <span>
+                {{ order.dateTime | date:'MMM d, h:mm a' }}
+              </span>
+
+            </div>
+
+
+            <span
+              class="badge"
+              [class]="
+                getStatusClass(
+                  order.orderStatus
+                )
+              "
+            >
+              {{ order.orderStatus }}
+            </span>
+
+          </div>
+
+
+          <!-- CUSTOMER -->
+
+          <div class="mobile-customer">
+
+            <label>
+              Customer
+            </label>
+
+            <strong>
+              {{ order.customer }}
+            </strong>
+
+          </div>
+
+
+          <!-- DETAILS -->
+
+          <div class="mobile-details">
+
+
+            <div class="mobile-detail">
+
+              <label>
+                Items
+              </label>
+
+              <strong>
+                {{ order.items }} Items
+              </strong>
+
+            </div>
+
+
+            <div class="mobile-detail">
+
+              <label>
+                Total
+              </label>
+
+              <strong>
+                {{ formatCurrency(order.total) }}
+              </strong>
+
+            </div>
+
+
+            <div class="mobile-detail">
+
+              <label>
+                Payment
+              </label>
+
+              <span
+                class="badge"
+                [class]="
+                  getPaymentClass(
+                    order.paymentStatus
+                  )
+                "
+              >
+                {{ order.paymentStatus }}
+              </span>
+
+            </div>
+
+
+            <div class="mobile-detail">
+
+              <label>
+                Status
+              </label>
+
+              <span
+                class="badge"
+                [class]="
+                  getStatusClass(
+                    order.orderStatus
+                  )
+                "
+              >
+                {{ order.orderStatus }}
+              </span>
+
+            </div>
+
+
+          </div>
+
+
+          <!-- VIEW -->
+
+          <button
+            type="button"
+            class="mobile-view-button"
+            (click)="viewOrder(order)"
+          >
+
+            View Order
+
+          </button>
+
+
+        </article>
+
+      }
+
+    }
+
+
+    <!-- MOBILE EMPTY -->
+
+    @if (
+      !loading() &&
+      orders().length === 0
+    ) {
+
+      <div class="mobile-empty">
+
+        <div class="empty-icon">
+          📦
+        </div>
+
+        <h3>
+          No orders found
+        </h3>
+
+        <p>
+          Try changing your search or filters.
+        </p>
+
+      </div>
+
+    }
+
+
+  </section>
+
+
+  <!-- =====================================================
+       PAGINATION
+       ===================================================== -->
+
+  @if (
+    !loading() &&
+    orders().length > 0 &&
+    totalPages > 1
+  ) {
+
+    <div class="pagination">
+
+
+      <div class="pagination-info">
+
+        Page {{ page() }}
+        of
+        {{ totalPages }}
+
+      </div>
+
+
+      <div class="pagination-buttons">
+
+
+        <button
+          type="button"
+          [disabled]="page() === 1"
+          (click)="previousPage()"
+        >
+          ‹
+        </button>
+
+
+        @for (
+          number of pageNumbers;
+          track number
+        ) {
+
+          <button
+            type="button"
+            [class.active]="
+              number === page()
+            "
+            (click)="goToPage(number)"
+          >
+            {{ number }}
+          </button>
+
+        }
+
+
+        <button
+          type="button"
+          [disabled]="
+            page() === totalPages
+          "
+          (click)="nextPage()"
+        >
+          ›
+        </button>
+
+
+      </div>
+
+
+    </div>
+
+  }
+
 
 </div>
+
+
+<!-- =======================================================
+     ORDER DETAILS MODAL
+     ======================================================= -->
+
+@if (showDetails()) {
+
+  <div
+    class="modal-overlay"
+    (click)="closeDetails()"
+  >
+
+    <div
+      class="order-modal"
+      (click)="$event.stopPropagation()"
+    >
+
+
+      <div class="modal-header">
+
+        <div>
+
+          <h2>
+            Order Details
+          </h2>
+
+          @if (selectedOrder(); as order) {
+
+            <span>
+              #{{ order.orderNumber }}
+            </span>
+
+          }
+
+        </div>
+
+
+        <button
+          type="button"
+          (click)="closeDetails()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      @if (selectedOrder(); as order) {
+
+        <div class="modal-body">
+
+
+          <div class="modal-row">
+
+            <label>
+              Customer
+            </label>
+
+            <strong>
+              {{ order.customer }}
+            </strong>
+
+          </div>
+
+
+          <div class="modal-row">
+
+            <label>
+              Date
+            </label>
+
+            <strong>
+              {{ order.dateTime | date:'medium' }}
+            </strong>
+
+          </div>
+
+
+          <div class="modal-row">
+
+            <label>
+              Items
+            </label>
+
+            <strong>
+              {{ order.items }} Items
+            </strong>
+
+          </div>
+
+
+          <div class="modal-row">
+
+            <label>
+              Total
+            </label>
+
+            <strong>
+              {{ formatCurrency(order.total) }}
+            </strong>
+
+          </div>
+
+
+          <div class="modal-status-row">
+
+            <div>
+
+              <label>
+                Payment
+              </label>
+
+              <span
+                class="badge"
+                [class]="
+                  getPaymentClass(
+                    order.paymentStatus
+                  )
+                "
+              >
+                {{ order.paymentStatus }}
+              </span>
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Status
+              </label>
+
+              <span
+                class="badge"
+                [class]="
+                  getStatusClass(
+                    order.orderStatus
+                  )
+                "
+              >
+                {{ order.orderStatus }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      }
+
+
+    </div>
+
+  </div>
+
+}
+
+
+<!-- =======================================================
+     TOAST
+     ======================================================= -->
+
+@if (toast()) {
+
+  <div class="toast">
+
+    {{ toast() }}
+
+  </div>
+
+}
