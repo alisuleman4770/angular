@@ -1,0 +1,308 @@
+<div class="tables-page">
+
+  <!-- ==============================
+       TOP HEADER
+       ============================== -->
+
+  <header class="topbar">
+
+    <div class="brand-area">
+
+      <div class="table-icon">
+        <span></span>
+      </div>
+
+      <div class="title-area">
+
+        <h1>Floor Plan</h1>
+
+        <div class="location-line">
+
+          <span class="status-dot"></span>
+
+          <span>
+            {{ activeSection }}
+          </span>
+
+          <span class="separator">
+            •
+          </span>
+
+          <span>
+            {{ sectionTables.length }} tables
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- OCCUPANCY -->
+
+    <div class="occupancy-area">
+
+      <strong>
+        {{ occupancy }}%
+      </strong>
+
+      <span>
+        OCCUPANCY
+      </span>
+
+      <div class="occupancy-track">
+
+        <div
+          class="occupancy-fill"
+          [style.width]="occupancyWidth">
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- SEARCH / BUTTONS -->
+
+    <div class="header-actions">
+
+      <label class="search">
+
+        <span>
+          ⌕
+        </span>
+
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          placeholder="Search tables..."
+          aria-label="Search tables">
+
+      </label>
+
+
+      <button
+        class="icon-button"
+        type="button"
+        title="Refresh"
+        (click)="refreshTables()">
+
+        ↻
+
+      </button>
+
+
+      <button
+        class="icon-button settings-button"
+        type="button"
+        title="Filter">
+
+        ☷
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- ==============================
+       TABLE GRID
+       ============================== -->
+
+  <main class="floor-content">
+
+    <div class="floor-grid">
+
+      <article
+        *ngFor="
+          let table of visibleTables;
+          trackBy: trackByTable
+        "
+        class="table-card"
+
+        [class.available]="
+          table.status === 'available'
+        "
+
+        [class.occupied]="
+          table.status === 'occupied'
+        ">
+
+
+        <!-- TIME -->
+
+        <div
+          class="elapsed"
+          *ngIf="
+            table.status === 'occupied'
+          ">
+
+          {{ table.elapsed }}
+
+        </div>
+
+
+        <!-- TABLE INFORMATION -->
+
+        <div class="table-main">
+
+          <h2>
+            {{ table.id }}
+          </h2>
+
+          <p>
+            {{ table.seats }} seats
+          </p>
+
+        </div>
+
+
+        <!-- TABLE FOOTER -->
+
+        <div class="table-footer">
+
+          <span
+            class="status-pill"
+
+            [class.available-pill]="
+              table.status === 'available'
+            "
+
+            [class.occupied-pill]="
+              table.status === 'occupied'
+            ">
+
+            {{ table.status | uppercase }}
+
+          </span>
+
+
+          <span
+            class="order-number"
+            *ngIf="table.order">
+
+            Order {{ table.order }}
+
+          </span>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- EMPTY SEARCH RESULT -->
+
+    <div
+      class="empty-state"
+      *ngIf="visibleTables.length === 0">
+
+      <div class="empty-icon">
+        ⌕
+      </div>
+
+      <h3>
+        No tables found
+      </h3>
+
+      <p>
+        Try another table name or reset the filters.
+      </p>
+
+      <button
+        type="button"
+        (click)="resetFilters()">
+
+        Reset filters
+
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <!-- ==============================
+       BOTTOM BAR
+       ============================== -->
+
+  <footer class="bottom-bar">
+
+    <div class="sections">
+
+      <span class="section-label">
+        ◆ SECTIONS
+      </span>
+
+
+      <button
+        type="button"
+        [class.active]="
+          activeSection === 'Hall'
+        "
+        (click)="switchSection('Hall')">
+
+        Hall
+
+      </button>
+
+
+      <button
+        type="button"
+        [class.active]="
+          activeSection === 'Basement'
+        "
+        (click)="switchSection('Basement')">
+
+        Basement
+
+      </button>
+
+    </div>
+
+
+    <div class="view-filter">
+
+      <button
+        type="button"
+        class="all-button"
+
+        [class.active]="
+          statusFilter === 'all'
+        "
+
+        (click)="statusFilter = 'all'">
+
+        <span class="grid-symbol">
+          ⊞
+        </span>
+
+        <span>
+          All
+        </span>
+
+        <b>
+          {{ sectionTables.length }}
+        </b>
+
+        <span class="chevron">
+          ⌄
+        </span>
+
+      </button>
+
+      <div class="last-updated">
+
+        Updated
+        {{ refreshedAt | date:'shortTime' }}
+
+      </div>
+
+    </div>
+
+  </footer>
+
+</div>
