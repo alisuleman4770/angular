@@ -1,0 +1,1505 @@
+/* ==========================================
+   GLOBAL COMPONENT
+   ========================================== */
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+
+/* ==========================================
+   MAIN PAGE
+   ========================================== */
+
+.tables-page {
+
+  min-height: 100vh;
+
+  padding:
+    18px
+    22px
+    0;
+
+  background:
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(225, 236, 255, 0.8),
+      transparent 35%
+    ),
+    #eef3f8;
+
+  color: #1d2a3a;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  overflow: hidden;
+}
+
+
+/* ==========================================
+   TOP HEADER
+   ========================================== */
+
+.topbar {
+
+  min-height: 82px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 22px;
+
+  padding:
+    12px
+    18px;
+
+  border:
+    1px solid
+    #dce4ee;
+
+  border-radius: 22px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.94
+    );
+
+  box-shadow:
+    0 8px 24px
+    rgba(
+      57,
+      79,
+      104,
+      0.08
+    );
+
+}
+
+
+/* ==========================================
+   BRAND
+   ========================================== */
+
+.brand-area {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-width: 185px;
+
+}
+
+
+/* ==========================================
+   TABLE ICON
+   ========================================== */
+
+.table-icon {
+
+  width: 46px;
+
+  height: 46px;
+
+  position: relative;
+
+  flex-shrink: 0;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #3d86f6,
+      #2f63d8
+    );
+
+  box-shadow:
+    inset
+    0 1px 1px
+    rgba(
+      255,
+      255,
+      255,
+      0.35
+    );
+
+}
+
+
+/* TABLE TOP */
+
+.table-top {
+
+  position: absolute;
+
+  width: 27px;
+
+  height: 9px;
+
+  left: 9px;
+
+  top: 14px;
+
+  background: white;
+
+  border-radius: 4px;
+
+}
+
+
+/* TABLE LEGS */
+
+.table-leg {
+
+  position: absolute;
+
+  width: 3px;
+
+  height: 12px;
+
+  top: 22px;
+
+  background: white;
+
+  border-radius: 2px;
+
+}
+
+
+.table-leg.left {
+
+  left: 13px;
+
+}
+
+
+.table-leg.right {
+
+  right: 13px;
+
+}
+
+
+/* ==========================================
+   TITLE
+   ========================================== */
+
+.title-area {
+
+  padding-right: 16px;
+
+  border-right:
+    1px solid
+    #e4e8ee;
+
+}
+
+
+.title-area h1 {
+
+  margin: 0;
+
+  font-size: 24px;
+
+  line-height: 1.05;
+
+  letter-spacing: -0.5px;
+
+  font-weight: 700;
+
+}
+
+
+.location-line {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 7px;
+
+  color: #788493;
+
+  font-size: 11px;
+
+  font-weight: 600;
+
+}
+
+
+.status-dot {
+
+  width: 7px;
+
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #ff6f61;
+
+}
+
+
+.separator {
+
+  color: #aab2bd;
+
+}
+
+
+/* ==========================================
+   OCCUPANCY
+   ========================================== */
+
+.occupancy-area {
+
+  width: 160px;
+
+}
+
+
+.occupancy-number {
+
+  display: block;
+
+  color: #f04f43;
+
+  font-size: 16px;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+}
+
+
+.occupancy-label {
+
+  margin-top: 4px;
+
+  color: #9ba3ad;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  letter-spacing: .4px;
+
+}
+
+
+.occupancy-track {
+
+  width: 100%;
+
+  height: 7px;
+
+  margin-top: 7px;
+
+  overflow: hidden;
+
+  border-radius: 99px;
+
+  background: #edf0f4;
+
+}
+
+
+.occupancy-fill {
+
+  height: 100%;
+
+  border-radius: 99px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #f7a623,
+      #ff6254
+    );
+
+  transition:
+    width
+    .25s
+    ease;
+
+}
+
+
+/* ==========================================
+   HEADER ACTIONS
+   ========================================== */
+
+.header-actions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-left: auto;
+
+}
+
+
+/* ==========================================
+   SEARCH
+   ========================================== */
+
+.search-box {
+
+  width: 212px;
+
+  height: 40px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding:
+    0
+    12px;
+
+  border:
+    1px solid
+    #dfe4ea;
+
+  border-radius: 13px;
+
+  background: white;
+
+  color: #85909e;
+
+}
+
+
+.search-icon {
+
+  font-size: 22px;
+
+  line-height: 1;
+
+  transform: rotate(-20deg);
+
+}
+
+
+.search-box input {
+
+  width: 100%;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #27364a;
+
+  font-size: 12px;
+
+}
+
+
+.search-box input::placeholder {
+
+  color: #9ba3ad;
+
+}
+
+
+/* ==========================================
+   HEADER BUTTONS
+   ========================================== */
+
+.icon-button {
+
+  width: 40px;
+
+  height: 40px;
+
+  border:
+    1px solid
+    #dfe4ea;
+
+  border-radius: 13px;
+
+  background: white;
+
+  color: #3472dc;
+
+  font-size: 23px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    0.15s
+    ease;
+
+}
+
+
+.icon-button:hover {
+
+  transform:
+    translateY(-1px);
+
+  background: #f5f8ff;
+
+}
+
+
+.filter-button {
+
+  font-size: 20px;
+
+}
+
+
+/* ==========================================
+   FLOOR CONTENT
+   ========================================== */
+
+.floor-content {
+
+  margin-top: 16px;
+
+  padding:
+    18px
+    6px
+    92px;
+
+  min-height:
+    calc(
+      100vh - 150px
+    );
+
+  overflow-y: auto;
+
+}
+
+
+/* ==========================================
+   TABLE GRID
+   ========================================== */
+
+.floor-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      6,
+      minmax(
+        145px,
+        1fr
+      )
+    );
+
+  gap: 14px;
+
+  max-width: 1500px;
+
+  margin:
+    0
+    auto;
+
+}
+
+
+/* ==========================================
+   TABLE CARD
+   ========================================== */
+
+.table-card {
+
+  position: relative;
+
+  min-height: 148px;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+
+  border:
+    1px solid
+    rgba(
+      39,
+      90,
+      180,
+      0.35
+    );
+
+  background:
+    linear-gradient(
+      145deg,
+      #4288f5 0%,
+      #2f64d7 100%
+    );
+
+  box-shadow:
+
+    0 7px 14px
+    rgba(
+      41,
+      84,
+      155,
+      0.18
+    ),
+
+    inset
+    0 1px 1px
+    rgba(
+      255,
+      255,
+      255,
+      0.28
+    );
+
+  color: white;
+
+  transition:
+    transform
+    .15s
+    ease,
+
+    box-shadow
+    .15s
+    ease;
+
+}
+
+
+/* HOVER */
+
+.table-card:hover {
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+
+    0 10px 20px
+    rgba(
+      41,
+      84,
+      155,
+      0.24
+    ),
+
+    inset
+    0 1px 1px
+    rgba(
+      255,
+      255,
+      255,
+      0.28
+    );
+
+}
+
+
+/* ==========================================
+   AVAILABLE CARD
+   ========================================== */
+
+.table-card.available {
+
+  border-color:
+    #b9d8d2;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fbfcfd 100%
+    );
+
+  color: #303b4a;
+
+  box-shadow:
+    0 6px 13px
+    rgba(
+      51,
+      74,
+      101,
+      0.08
+    );
+
+}
+
+
+/* ==========================================
+   ELAPSED TIME
+   ========================================== */
+
+.elapsed {
+
+  position: absolute;
+
+  top: 9px;
+
+  right: 9px;
+
+  padding:
+    4px
+    8px;
+
+  border-radius: 99px;
+
+  background: #ff765f;
+
+  color: white;
+
+  font-size: 9px;
+
+  font-weight: 800;
+
+  box-shadow:
+    0 2px 5px
+    rgba(
+      0,
+      0,
+      0,
+      0.1
+    );
+
+}
+
+
+/* ==========================================
+   TABLE CENTER
+   ========================================== */
+
+.table-main {
+
+  min-height: 112px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    24px
+    8px
+    10px;
+
+}
+
+
+.table-main h2 {
+
+  margin: 0;
+
+  font-size: 24px;
+
+  line-height: 1;
+
+  font-weight: 500;
+
+  letter-spacing: -0.5px;
+
+}
+
+
+.table-main p {
+
+  margin:
+    6px
+    0
+    0;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.78
+    );
+
+  font-size: 11px;
+
+}
+
+
+/* AVAILABLE TEXT */
+
+.available
+.table-main p {
+
+  color: #8e98a5;
+
+}
+
+
+/* ==========================================
+   TABLE FOOTER
+   ========================================== */
+
+.table-footer {
+
+  min-height: 36px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  padding:
+    7px
+    9px;
+
+  border-top:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.16
+    );
+
+}
+
+
+/* AVAILABLE FOOTER */
+
+.available
+.table-footer {
+
+  border-top-color:
+    #e9edf1;
+
+}
+
+
+/* ==========================================
+   STATUS PILL
+   ========================================== */
+
+.status-pill {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  padding:
+    4px
+    8px;
+
+  border-radius: 5px;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: .25px;
+
+}
+
+
+/* OCCUPIED */
+
+.occupied-pill {
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.3
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.15
+    );
+
+  color: white;
+
+}
+
+
+/* AVAILABLE */
+
+.available-pill {
+
+  border:
+    1px solid
+    #cbe7e0;
+
+  background:
+    #e8f7f3;
+
+  color:
+    #4e9a8d;
+
+}
+
+
+/* ==========================================
+   ORDER NUMBER
+   ========================================== */
+
+.order-number {
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.9
+    );
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+
+}
+
+
+/* ==========================================
+   EMPTY STATE
+   ========================================== */
+
+.empty-state {
+
+  max-width: 420px;
+
+  margin:
+    70px
+    auto;
+
+  padding: 35px;
+
+  text-align: center;
+
+  border:
+    1px solid
+    #dfe6ee;
+
+  border-radius: 18px;
+
+  background: white;
+
+}
+
+
+.empty-icon {
+
+  font-size: 34px;
+
+  color: #6c8fd7;
+
+}
+
+
+.empty-state h3 {
+
+  margin:
+    10px
+    0
+    5px;
+
+}
+
+
+.empty-state p {
+
+  margin:
+    0
+    0
+    16px;
+
+  color: #7d8793;
+
+  font-size: 13px;
+
+}
+
+
+.empty-state button {
+
+  border: none;
+
+  border-radius: 8px;
+
+  padding:
+    9px
+    15px;
+
+  background: #356fdc;
+
+  color: white;
+
+  cursor: pointer;
+
+}
+
+
+/* ==========================================
+   BOTTOM BAR
+   ========================================== */
+
+.bottom-bar {
+
+  position: fixed;
+
+  left: 0;
+
+  right: 0;
+
+  bottom: 0;
+
+  z-index: 50;
+
+  min-height: 62px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 18px;
+
+  padding:
+    8px
+    24px;
+
+  border-top:
+    1px solid
+    #dfe5eb;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.97
+    );
+
+  box-shadow:
+    0 -5px 18px
+    rgba(
+      42,
+      57,
+      75,
+      0.08
+    );
+
+}
+
+
+/* ==========================================
+   SECTION BUTTONS
+   ========================================== */
+
+.sections {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+}
+
+
+.section-label {
+
+  margin-right: 3px;
+
+  color: #6f7b89;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+}
+
+
+.sections button {
+
+  border:
+    1px solid
+    #dfe3e8;
+
+  border-radius: 18px;
+
+  background: white;
+
+  color: #273447;
+
+  cursor: pointer;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  padding:
+    9px
+    16px;
+
+  transition:
+    .15s
+    ease;
+
+}
+
+
+/* ACTIVE SECTION */
+
+.sections button.active {
+
+  border-color:
+    #3e70e0;
+
+  background:
+    #416fe0;
+
+  color: white;
+
+  box-shadow:
+    0 4px 10px
+    rgba(
+      65,
+      111,
+      224,
+      0.2
+    );
+
+}
+
+
+/* ==========================================
+   RIGHT BOTTOM
+   ========================================== */
+
+.view-filter {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+
+/* ==========================================
+   ALL BUTTON
+   ========================================== */
+
+.all-button {
+
+  min-width: 175px;
+
+  height: 40px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding:
+    0
+    11px;
+
+  border:
+    1px solid
+    #dfe3e8;
+
+  border-radius: 19px;
+
+  background: white;
+
+  color: #273447;
+
+  cursor: pointer;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+}
+
+
+.all-button:hover {
+
+  background: #f7f9fc;
+
+}
+
+
+/* ==========================================
+   GRID ICON
+   ========================================== */
+
+.grid-symbol {
+
+  width: 23px;
+
+  height: 23px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 6px;
+
+  background: #eef4ff;
+
+  color: #4778d8;
+
+  font-size: 17px;
+
+}
+
+
+/* COUNT */
+
+.all-button b {
+
+  padding:
+    2px
+    7px;
+
+  border-radius: 9px;
+
+  background: #f0f2f5;
+
+  color: #9aa3ad;
+
+  font-size: 9px;
+
+}
+
+
+/* CHEVRON */
+
+.chevron {
+
+  margin-left: auto;
+
+  color: #6f7b89;
+
+  font-size: 14px;
+
+}
+
+
+/* ==========================================
+   UPDATED TEXT
+   ========================================== */
+
+.last-updated {
+
+  color: #9aa3ad;
+
+  font-size: 9px;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE - 1100PX
+   ========================================== */
+
+@media (max-width: 1100px) {
+
+  .floor-grid {
+
+    grid-template-columns:
+      repeat(
+        4,
+        minmax(
+          145px,
+          1fr
+        )
+      );
+
+  }
+
+
+  .occupancy-area {
+
+    width: 130px;
+
+  }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE - 800PX
+   ========================================== */
+
+@media (max-width: 800px) {
+
+  .tables-page {
+
+    padding:
+      10px
+      10px
+      0;
+
+  }
+
+
+  .topbar {
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border-radius: 16px;
+
+  }
+
+
+  .brand-area {
+
+    min-width: 0;
+
+    flex: 1;
+
+  }
+
+
+  .occupancy-area {
+
+    order: 3;
+
+    width: 100%;
+
+  }
+
+
+  .header-actions {
+
+    margin-left: 0;
+
+  }
+
+
+  .search-box {
+
+    width:
+      min(
+        190px,
+        45vw
+      );
+
+  }
+
+
+  .floor-grid {
+
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(
+          120px,
+          1fr
+        )
+      );
+
+    gap: 10px;
+
+  }
+
+
+  .table-card {
+
+    min-height: 138px;
+
+  }
+
+
+  .bottom-bar {
+
+    padding:
+      7px
+      10px;
+
+  }
+
+
+  .section-label,
+  .last-updated {
+
+    display: none;
+
+  }
+
+
+  .all-button {
+
+    min-width: 130px;
+
+  }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE - 520PX
+   ========================================== */
+
+@media (max-width: 520px) {
+
+  .title-area h1 {
+
+    font-size: 20px;
+
+  }
+
+
+  .title-area {
+
+    padding-right: 8px;
+
+  }
+
+
+  .table-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+  }
+
+
+  .table-top {
+
+    width: 24px;
+
+    left: 8px;
+
+    top: 12px;
+
+  }
+
+
+  .table-leg.left {
+
+    left: 12px;
+
+  }
+
+
+  .table-leg.right {
+
+    right: 12px;
+
+  }
+
+
+  .search-box {
+
+    width: 42px;
+
+    padding:
+      0
+      10px;
+
+  }
+
+
+  .search-box input {
+
+    display: none;
+
+  }
+
+
+  .floor-grid {
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(
+          120px,
+          1fr
+        )
+      );
+
+  }
+
+
+  .bottom-bar {
+
+    gap: 7px;
+
+  }
+
+
+  .sections {
+
+    flex: 1;
+
+  }
+
+
+  .sections button {
+
+    flex: 1;
+
+    padding:
+      9px
+      10px;
+
+  }
+
+
+  .view-filter {
+
+    flex: 1;
+
+  }
+
+
+  .all-button {
+
+    width: 100%;
+
+    min-width: 0;
+
+  }
+
+}
