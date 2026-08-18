@@ -1,0 +1,518 @@
+<div class="pos-page">
+
+  <!-- ==========================================
+       HEADER
+       ========================================== -->
+
+  <header class="pos-header">
+
+    <div>
+
+      <h1>
+        POS
+      </h1>
+
+      <p>
+        Create and process new orders
+      </p>
+
+    </div>
+
+
+    <div class="order-info">
+
+      <span>
+        New Order
+      </span>
+
+      <strong>
+        #NEW
+      </strong>
+
+    </div>
+
+  </header>
+
+
+  <!-- ==========================================
+       MAIN POS
+       ========================================== -->
+
+  <main class="pos-layout">
+
+
+    <!-- ========================================
+         PRODUCTS
+         ======================================== -->
+
+    <section class="products-section">
+
+
+      <!-- SEARCH -->
+
+      <div class="search-box">
+
+        <span class="search-icon">
+          🔍
+        </span>
+
+        <input
+          type="text"
+          placeholder="Search products..."
+          (input)="onSearch($event)"
+        />
+
+      </div>
+
+
+      <!-- CATEGORIES -->
+
+      <div class="categories">
+
+        @for (
+          category of categories;
+          track category
+        ) {
+
+          <button
+            type="button"
+            class="category"
+            [class.active]="
+              selectedCategory() === category
+            "
+            (click)="
+              selectCategory(category)
+            "
+          >
+
+            {{ category }}
+
+          </button>
+
+        }
+
+      </div>
+
+
+      <!-- PRODUCT GRID -->
+
+      <div class="products-grid">
+
+        @for (
+          product of filteredProducts();
+          track product.id
+        ) {
+
+          <article class="product-card">
+
+
+            <!-- IMAGE -->
+
+            <div class="product-image">
+
+              {{ product.icon }}
+
+            </div>
+
+
+            <!-- CONTENT -->
+
+            <div class="product-content">
+
+              <h3>
+
+                {{ product.name }}
+
+              </h3>
+
+
+              <p>
+
+                {{ product.description }}
+
+              </p>
+
+
+              <div class="product-footer">
+
+
+                <strong>
+
+                  {{ formatCurrency(product.price) }}
+
+                </strong>
+
+
+                <button
+                  type="button"
+                  (click)="addToCart(product)"
+                >
+
+                  + Add
+
+                </button>
+
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+
+        <!-- NO PRODUCTS -->
+
+        @if (
+          filteredProducts().length === 0
+        ) {
+
+          <div class="no-products">
+
+            <div>
+              🔍
+            </div>
+
+            <h3>
+              No products found
+            </h3>
+
+            <p>
+              Try another search or category.
+            </p>
+
+          </div>
+
+        }
+
+      </div>
+
+
+    </section>
+
+
+    <!-- ========================================
+         CART
+         ======================================== -->
+
+    <aside class="cart-section">
+
+
+      <!-- CART HEADER -->
+
+      <div class="cart-header">
+
+        <div>
+
+          <h2>
+            Current Order
+          </h2>
+
+          <span>
+
+            {{ cartItemCount() }}
+
+            {{
+              cartItemCount() === 1
+                ? 'item'
+                : 'items'
+            }}
+
+          </span>
+
+        </div>
+
+
+        @if (
+          cart().length > 0
+        ) {
+
+          <button
+            type="button"
+            class="clear-button"
+            (click)="clearCart()"
+          >
+
+            Clear
+
+          </button>
+
+        }
+
+      </div>
+
+
+      <!-- =====================================
+           CART ITEMS
+           ===================================== -->
+
+      @if (
+        cart().length > 0
+      ) {
+
+        <div class="cart-items">
+
+
+          @for (
+            item of cart();
+            track item.id
+          ) {
+
+            <div class="cart-item">
+
+
+              <!-- PRODUCT -->
+
+              <div class="cart-item-info">
+
+                <div class="cart-item-icon">
+
+                  {{ item.icon }}
+
+                </div>
+
+
+                <div>
+
+                  <strong>
+                    {{ item.name }}
+                  </strong>
+
+                  <span>
+
+                    {{ formatCurrency(item.price) }}
+
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <!-- QUANTITY -->
+
+              <div class="cart-item-actions">
+
+
+                <div class="quantity-control">
+
+
+                  <button
+                    type="button"
+                    (click)="
+                      decreaseQuantity(item.id)
+                    "
+                  >
+                    −
+                  </button>
+
+
+                  <span>
+                    {{ item.quantity }}
+                  </span>
+
+
+                  <button
+                    type="button"
+                    (click)="
+                      increaseQuantity(item.id)
+                    "
+                  >
+                    +
+                  </button>
+
+
+                </div>
+
+
+                <strong class="item-total">
+
+                  {{
+                    formatCurrency(
+                      item.price *
+                      item.quantity
+                    )
+                  }}
+
+                </strong>
+
+
+                <button
+                  type="button"
+                  class="remove-button"
+                  (click)="
+                    removeFromCart(item.id)
+                  "
+                  aria-label="Remove item"
+                >
+
+                  ×
+
+                </button>
+
+
+              </div>
+
+
+            </div>
+
+          }
+
+
+        </div>
+
+      }
+
+
+      <!-- =====================================
+           EMPTY CART
+           ===================================== -->
+
+      @else {
+
+        <div class="cart-empty">
+
+          <div class="cart-icon">
+            🛒
+          </div>
+
+          <h3>
+            Your cart is empty
+          </h3>
+
+          <p>
+            Select products to add them
+            to the order.
+          </p>
+
+        </div>
+
+      }
+
+
+      <!-- =====================================
+           SUMMARY
+           ===================================== -->
+
+      <div class="cart-summary">
+
+
+        <div class="summary-row">
+
+          <span>
+            Subtotal
+          </span>
+
+          <strong>
+            {{ formatCurrency(subtotal()) }}
+          </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Tax (10%)
+          </span>
+
+          <strong>
+            {{ formatCurrency(tax()) }}
+          </strong>
+
+        </div>
+
+
+        <div class="summary-row total-row">
+
+          <span>
+            Total
+          </span>
+
+          <strong>
+            {{ formatCurrency(total()) }}
+          </strong>
+
+        </div>
+
+
+        <!-- ===================================
+             PAYMENT
+             =================================== -->
+
+        <div class="payment-section">
+
+          <h3>
+            Payment Method
+          </h3>
+
+
+          <div class="payment-options">
+
+            @for (
+              method of paymentMethods;
+              track method
+            ) {
+
+              <button
+                type="button"
+                class="payment-option"
+                [class.active]="
+                  paymentMethod() === method
+                "
+                (click)="
+                  selectPaymentMethod(method)
+                "
+              >
+
+                @if (method === 'Cash') {
+                  💵
+                }
+
+                @if (method === 'Card') {
+                  💳
+                }
+
+                @if (method === 'Other') {
+                  •••
+                }
+
+                {{ method }}
+
+              </button>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- ===================================
+             PROCESS ORDER
+             =================================== -->
+
+        <button
+          type="button"
+          class="process-button"
+          [disabled]="
+            cart().length === 0
+          "
+          (click)="processOrder()"
+        >
+
+          Process Order
+
+        </button>
+
+
+      </div>
+
+
+    </aside>
+
+
+  </main>
+
+</div>

@@ -3,6 +3,8 @@ import { LoginPage } from './login-page/login-page';
 import { SignupPage } from './signup-page/signup-page';
 import { DashboardPage } from './dashboard/dashboard';
 import { Orders } from './orders/orders';
+import { Pos } from './pos/pos';
+
 
 export const routes: Routes = [
   {
@@ -14,12 +16,17 @@ export const routes: Routes = [
     component: SignupPage,
   },
 
-  { path: 'dashboard', 
+  { path: 'dashboard',
     component: DashboardPage },
 
      {
     path: 'orders',
     component: Orders
+  },
+
+  {
+  path: 'pos',
+  component: Pos
   }
 
 
